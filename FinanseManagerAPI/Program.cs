@@ -19,6 +19,8 @@ builder.Services.AddAuthorizationBuilder();
 
 builder.Services.AddDbContext<AppDbContext>(opt =>
     opt.UseSqlServer(builder.Configuration.GetConnectionString("FinanceManager")));
+builder.Services.AddDbContext<DataDbContext>(opt =>
+    opt.UseSqlServer(builder.Configuration.GetConnectionString("Transactions")));
 
 builder.Services.AddIdentityCore<IdentityUser>()
                 .AddEntityFrameworkStores<AppDbContext>()
