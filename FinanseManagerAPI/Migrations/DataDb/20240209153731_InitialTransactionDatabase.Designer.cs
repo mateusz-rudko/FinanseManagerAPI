@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FinanseManagerAPI.Migrations.DataDb
 {
     [DbContext(typeof(DataDbContext))]
-    [Migration("20240209151528_InitialTransactionDatabase")]
+    [Migration("20240209153731_InitialTransactionDatabase")]
     partial class InitialTransactionDatabase
     {
         /// <inheritdoc />
