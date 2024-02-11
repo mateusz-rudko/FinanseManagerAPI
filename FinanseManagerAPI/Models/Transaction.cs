@@ -1,6 +1,8 @@
 ﻿using FinanseManagerAPI.Models.Enums;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace FinanseManagerAPI.Models
 {
@@ -14,12 +16,15 @@ namespace FinanseManagerAPI.Models
         public decimal Amount {  get; set; }
         [Required(ErrorMessage = "Date is required.")]
         public DateTime Date { get; set; }
-        public int UserId { get; set; }
+        public string UserId { get; set; }
         [Required(ErrorMessage = "Category is required.")]
+        [JsonConverter(typeof(JsonStringEnumConverter))]
         public CategoryType Category { get; set; }
         [Required(ErrorMessage = "Payment method is required.")]
+        [JsonConverter(typeof(JsonStringEnumConverter))]
         public PaymentMethod PaymentMethod { get; set; }
         [Required(ErrorMessage = "Transaction type is required.")]
+        [JsonConverter(typeof(JsonStringEnumConverter))]
         public TransactionType Type { get; set; }
     }
 }

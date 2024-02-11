@@ -6,6 +6,7 @@ namespace FinanseManagerAPI.Interfaces
 {
     public interface ITransactions
     {
-        Transaction GetTransactionDetails(int transactionId);
+        Task<Transaction> AddTransaction(Transaction transaction);
+        Task<Transaction> GetTransactionDetails(int transactionId);
     }
 }
