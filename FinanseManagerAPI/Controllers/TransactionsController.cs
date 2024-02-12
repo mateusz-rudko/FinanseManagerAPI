@@ -35,7 +35,7 @@ namespace FinanseManagerAPI.Controllers
             var userId = _user.GetUserId(User);
             if(userId == null) 
             {
-                return NotFound("Session out");
+                return Unauthorized("You need to login first");
             }
             Transaction mappedTransaction = _mapper.Map<Transaction>(transactionDTO);
             Transaction transaction = new Transaction()
@@ -50,6 +50,18 @@ namespace FinanseManagerAPI.Controllers
             };
             await _transactions.AddTransaction(transaction);
             return Ok(transactionDTO);      
+        }
+        [HttpDelete("Delete/{transactionId}")]
+        [Authorize]
+        public async Task<IActionResult> DeleteTransaction(int transactionId)
+        {
+            var userId = _user.GetUserId(User);
+            if(userId == null)
+            {
+                return Unauthorized("You need to login first");
+            }
+            await _transactions.DeleteTransaction(transactionId, userId);
+            return Ok();
         }
 
     }

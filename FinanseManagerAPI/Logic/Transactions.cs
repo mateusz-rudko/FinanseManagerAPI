@@ -2,6 +2,7 @@
 using FinanseManagerAPI.Interfaces;
 using FinanseManagerAPI.Models;
 using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.EntityFrameworkCore;
 
 namespace FinanseManagerAPI.Logic
 {
@@ -24,10 +25,46 @@ namespace FinanseManagerAPI.Logic
             throw new ArgumentNullException(nameof(transaction), "Transaction cannot be empty");
 
         }
+        public async Task<Transaction> DeleteTransaction(int transactionId, string userId)
+        {
+            try
+            {
+                var transaction = await _db.Transactions.FirstOrDefaultAsync(t => t.Id == transactionId && t.UserId == userId);
+                if(transaction != null)
+                {
+                    _db.Transactions.Remove(transaction);
+                    await _db.SaveChangesAsync();
+                    return transaction;
+                }
+                throw new ArgumentException("Transaction not found", nameof(transactionId));
+            }
+            catch (Exception ex) 
+            {
+                throw new Exception("An error occurred while deleting the transaction", ex);
+            }
+        }
+
+        public Task<List<Transaction>> GetAllTransactions()
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<Transaction> GetTransactionDetails(int transactionId)
         {
-            Transaction transaction = new Transaction();
-            return transaction;
+            try
+            {
+                var transaction = await _db.Transactions.FindAsync(transactionId);
+                return transaction;
+            }
+            catch(Exception ex) 
+            {
+                throw new Exception("An error occurred while getting the transaction", ex);
+            }          
+        }
+
+        public Task<Transaction> UpdateTransaction(int transactionId, Transaction transaction)
+        {
+            throw new NotImplementedException();
         }
     }
 }
