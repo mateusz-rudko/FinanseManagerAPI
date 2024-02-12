@@ -14,6 +14,22 @@ namespace FinanseManagerAPI.Logic
         {
             _db = db;
         }
+        public async Task<Transaction> GetTransactionDetails(int transactionId, string userId)
+        {
+            try
+            {
+                var transaction = await _db.Transactions.FirstOrDefaultAsync(t => t.Id == transactionId && t.UserId == userId);
+                if(transaction != null)
+                {
+                    return transaction;
+                }
+                throw new ArgumentException("Transaction not found", nameof(transactionId));
+            }
+            catch(Exception ex)
+            {
+                throw new Exception("An error occurred while getting the transaction", ex);
+            }
+        }
         public async Task<Transaction> AddTransaction(Transaction transaction)
         {
             if(transaction != null)
@@ -29,7 +45,7 @@ namespace FinanseManagerAPI.Logic
         {
             try
             {
-                var transaction = await _db.Transactions.FirstOrDefaultAsync(t => t.Id == transactionId && t.UserId == userId);
+                var transaction = await GetTransactionDetails(transactionId, userId);
                 if(transaction != null)
                 {
                     _db.Transactions.Remove(transaction);
@@ -49,18 +65,7 @@ namespace FinanseManagerAPI.Logic
             throw new NotImplementedException();
         }
 
-        public async Task<Transaction> GetTransactionDetails(int transactionId)
-        {
-            try
-            {
-                var transaction = await _db.Transactions.FindAsync(transactionId);
-                return transaction;
-            }
-            catch(Exception ex) 
-            {
-                throw new Exception("An error occurred while getting the transaction", ex);
-            }          
-        }
+        
 
         public Task<Transaction> UpdateTransaction(int transactionId, Transaction transaction)
         {
