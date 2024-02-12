@@ -28,7 +28,6 @@ builder.Services.AddDbContext<DataDbContext>(opt =>
 builder.Services.AddIdentityCore<IdentityUser>()
                 .AddEntityFrameworkStores<AppDbContext>()
                 .AddApiEndpoints();
-
 builder.Services
     .AddScoped<ITransactions, Transactions>();
 

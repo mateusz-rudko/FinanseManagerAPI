@@ -15,12 +15,15 @@ namespace FinanseManagerAPI.Models.DTOs
         public DateTime Date { get; set; }
         [Required(ErrorMessage = "Category is required.")]
         [JsonConverter(typeof(JsonStringEnumConverter))]
+        [Column(TypeName = "nvarchar(24)")]
         public CategoryType Category { get; set; }
         [Required(ErrorMessage = "Payment method is required.")]
         [JsonConverter(typeof(JsonStringEnumConverter))]
+        [Column(TypeName = "nvarchar(24)")]
         public PaymentMethod PaymentMethod { get; set; }
         [Required(ErrorMessage = "Transaction type is required.")]
         [JsonConverter(typeof(JsonStringEnumConverter))]
+        [Column(TypeName = "nvarchar(24)")]
         public TransactionType Type { get; set; }
     }
 }
