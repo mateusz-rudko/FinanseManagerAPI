@@ -63,6 +63,17 @@ namespace FinanseManagerAPI.Controllers
             await _transactions.DeleteTransaction(transactionId, userId);
             return Ok();
         }
-
+        [HttpGet("GetTransactions/{startDate}/{endDate}")]
+        [Authorize]
+        public async Task<IActionResult> GetTransactionsBeetwenDates(DateTime startDate, DateTime endDate)
+        {
+            var userId = _user.GetUserId(User);
+            if(userId == null)
+            {
+                return Unauthorized("You need to login first");
+            }
+            var groupedTransaction = await _transactions.CalculateExpensesAndIncomesByCategory(userId, startDate, endDate);
+            return Ok(groupedTransaction);
+        }
     }
 }

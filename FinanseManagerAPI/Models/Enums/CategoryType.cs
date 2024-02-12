@@ -3,6 +3,8 @@
     public enum CategoryType
     {
         Bill,
-        Payment
+        Payment,
+        Fuel,
+        Energy
     }
 }
