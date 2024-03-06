@@ -2,6 +2,9 @@
 {
     public enum CategoryType
     {
-
+        Bill,
+        Payment,
+        Fuel,
+        Energy
     }
 }

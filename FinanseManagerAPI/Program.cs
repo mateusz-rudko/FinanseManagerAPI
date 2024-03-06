@@ -1,4 +1,6 @@
 using FinanseManagerAPI.Data;
+using FinanseManagerAPI.Interfaces;
+using FinanseManagerAPI.Logic;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -19,12 +21,15 @@ builder.Services.AddAuthorizationBuilder();
 
 builder.Services.AddDbContext<AppDbContext>(opt =>
     opt.UseSqlServer(builder.Configuration.GetConnectionString("FinanceManager")));
+
 builder.Services.AddDbContext<DataDbContext>(opt =>
     opt.UseSqlServer(builder.Configuration.GetConnectionString("FinanceManager")));
 
 builder.Services.AddIdentityCore<IdentityUser>()
                 .AddEntityFrameworkStores<AppDbContext>()
                 .AddApiEndpoints();
+builder.Services
+    .AddScoped<ITransactions, Transactions>();
 
 var app = builder.Build();
 

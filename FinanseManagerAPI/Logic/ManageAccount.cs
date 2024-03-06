@@ -2,8 +2,7 @@
 using FinanseManagerAPI.Data;
 using FinanseManagerAPI.Models;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc.Infrastructure;
-using System.Security.Claims;
+using Microsoft.AspNetCore.Mvc;
 
 namespace FinanseManagerAPI.Logic
 {
@@ -19,11 +18,7 @@ namespace FinanseManagerAPI.Logic
             _mapper = mapper;
             _user = user;
         }
-        
-        //public async Task<User> GetSomething()
-        //{
-        //    var user = await _user.GetUserAsync(ClaimsPrincipal.Current);
-            
-        //}
+
+       
     }
 }
